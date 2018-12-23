@@ -63,10 +63,10 @@ export default (state = initialState, action) => {
       }
     }
     case 'REMOVE_CART': {
-      const { name } = action.payload;
+      const { description } = action.payload;
       let newItems = [...state.items];
       for (let i = 0; i < newItems.length; i++) {
-        if (name === newItems[i].name) {
+        if (description === newItems[i].description) {
           newItems[i].cart--;
         }
       }

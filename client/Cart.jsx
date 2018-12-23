@@ -16,7 +16,7 @@ class Cart extends React.Component {
         <ul>
           {items.map((item) => {
             return <li>
-              <Items img={item.img} description={item.description} name={item.name} price={item.price} />
+              <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart}/>
             </li>
           })}
         </ul>
@@ -37,6 +37,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(addCart(e))
     },
     removeCart: (e) => {
+      console.log(e.target.id);
       dispatch(removeCart(e))
     }
   }

@@ -8,6 +8,6 @@ export const addCart = e => ({
 export const removeCart = e => ({
   type: 'REMOVE_CART',
   payload: {
-    name: e.target.id
+    description: e.target.id
   }
 })

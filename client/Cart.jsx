@@ -3,6 +3,8 @@ import Items from './Items.jsx';
 import { addCart, removeCart } from './redux/actions.js';
 import { connect } from 'react-redux';
 
+import './cart.css';
+
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -11,11 +13,11 @@ class Cart extends React.Component {
   render() {
     const { items } = this.props
     return (
-      <div>
+      <div className='display'>
         <h3>These are the items to buy:</h3>
-        <ul>
+        <ul className='ulist'>
           {items.map((item) => {
-            return <li>
+            return <li className='list'>
               <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart}/>
             </li>
           })}

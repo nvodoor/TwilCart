@@ -1,0 +1,21 @@
+.list {
+  list-style: none;
+  margin: 20px;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+}
+
+.ulist {
+  display: flex;
+  max-width: 100%;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+img {
+  width: 500px;
+  height: 400px;
+}

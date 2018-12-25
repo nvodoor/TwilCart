@@ -49,7 +49,9 @@ const initialState = {
   newUser: '',
   newPassword: '',
   user: '',
-  password: ''
+  password: '',
+  loginPage: false,
+  loggedIn: 'no'
 }
 
 export default (state = initialState, action) => {
@@ -123,16 +125,40 @@ export default (state = initialState, action) => {
        .then(res => console.log(res))
        .catch(err => console.log(err));
      }
-     case 'LOGIN_USER': {
-       const username = state.user;
-       const password = state.password;
-       const url = new URL('/login');
-       const params = {username: username, password: password};
-       url.search = new URLSearchParams(params);
-       
-       fetch(url)
-       .then(res => res.json())
-       .then(data => console.log(data))
+     case '_USER': {
+       const { user } = action.payload;
+       return {
+         ...state,
+         user: user
+       }
+     }
+     case '_PASSWORD': {
+       const { password } = action.payload;
+       return {
+         ...state,
+         password: password
+       }
+     }
+     case 'LOGIN_PAGE': {
+       const { loginPage } = action.payload;
+       return {
+         ...state,
+         loginPage: loginPage
+       }
+     }
+    case 'LEAVE_LOGIN_PAGE': {
+      const { loginPage } = action.payload;
+      return {
+        ...state,
+        loginPage: loginPage
+      }
+    }
+     case 'USE_SITE': {
+       return {
+         ...state,
+         loggedIn: 'yes',
+         loginPage: false
+       }
      }
     default:
       return state 

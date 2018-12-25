@@ -57,3 +57,32 @@ export const updatePassword = (e) => ({
     password: e.target.value
   }
 })
+
+export const loginUser = (username, password) => {
+    return (dispatch) => {
+      fetch(`/login?username=${username}&password=${password}`)
+        .then(res => res.json())
+        .then((data) => {
+          console.log(data);
+          dispatch(useSite())
+        })
+    } 
+}
+
+export const login = () => ({
+  type: 'LOGIN_PAGE',
+  payload: {
+    loginPage: 'yes'
+  }
+})
+
+export const leaveLogin = () => ({
+  type: 'LEAVE_LOGIN_PAGE',
+  payload: {
+    loginPage: false
+  }
+})
+
+export const useSite = () => ({
+  type: 'USE_SITE'
+})

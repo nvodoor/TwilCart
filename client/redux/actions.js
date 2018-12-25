@@ -25,3 +25,35 @@ export const leaveSignUp = () => ({
     signup: 'no'
   }
 })
+
+export const updateNewUser = (e) => ({
+  type: 'CREATE_USER',
+  payload: {
+    newUser: e.target.value
+  }
+})
+
+export const updateNewPassword = (e) => ({
+  type: 'CREATE_PASSWORD',
+  payload: {
+    newPassword: e.target.value
+  }
+})
+
+export const createUser = () => ({
+  type: 'CREATE_NEW_USER'
+})
+
+export const updateUser = (e) => ({
+  type: '_USER',
+  payload: {
+    user: e.target.value
+  }
+})
+
+export const updatePassword = (e) => ({
+  type: '_PASSWORD',
+  payload: {
+    password: e.target.value
+  }
+})

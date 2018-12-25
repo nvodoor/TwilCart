@@ -1,7 +1,8 @@
 import React from 'react';
 import Items from './Items.jsx';
 import SignUser from './SignUser.jsx';
-import { addCart, removeCart, signUp } from './redux/actions.js';
+import LoginUser from './LoginUser.jsx';
+import { addCart, removeCart, signUp, login } from './redux/actions.js';
 import { connect } from 'react-redux';
 
 
@@ -13,21 +14,39 @@ class Cart extends React.Component {
   }
 
   renderView() {
-    const { items, signup, signUp } = this.props
-
+    const { items, signup, signUp, loginPage, loggedIn, user, login } = this.props
     if (signup === 'yes') {
       return <SignUser />
     } else {
-      return <div><h3>These are the items to buy:</h3>
-        <ul className='ulist'>
-          {items.map((item) => {
-            return <li className='list'>
-              <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart} />
-            </li>
-          })}
-        </ul>
-        <button type="text" onClick={signUp}>Sign Up</button>
-      </div>
+      if (!loginPage) {
+        if (loggedIn === 'no') {
+          return <div><h3>These are the items to buy:</h3>
+            <ul className='ulist'>
+              {items.map((item) => {
+                return <li className='list'>
+                  <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart} />
+                </li>
+              })}
+            </ul>
+            <button type="text" onClick={signUp}>Sign Up</button>
+            <button type="text" onClick={login}>Login</button>
+          </div>
+        } else {
+          return <div>
+            <h2>Welcome: {user}</h2>
+            <h3>These are the items to buy:</h3>
+            <ul className='ulist'>
+              {items.map((item) => {
+                return <li className='list'>
+                  <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart} />
+                </li>
+              })}
+            </ul>
+          </div>
+        }
+      } else if (loginPage) {
+        return <LoginUser />
+      } 
     }
   }
 
@@ -44,7 +63,10 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     items: state.items,
-    signup: state.signup
+    signup: state.signup,
+    loginPage: state.loginPage,
+    user: state.user,
+    loggedIn: state.loggedIn
   }
 }
 
@@ -58,6 +80,9 @@ const mapDispatchToProps = dispatch => {
     },
     signUp: () => {
       dispatch(signUp())
+    },
+    login: () => {
+      dispatch(login())
     }
   }
 }

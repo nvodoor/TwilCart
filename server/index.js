@@ -10,6 +10,8 @@ const app = express();
 app.use(parser.json());
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -27,10 +29,10 @@ passport.use(new localStrategy(
       if (error) {
         return done(error)
       } else {
-        if (password === result.password) {
-          return done(null, user)
+        if (password === result[0].password) {
+          return done(null, result[0].username)
         } else {
-          console.log('bad password');
+          console.log('bad password', result[0]);
           return done(null, false, { message: 'Wrong Password.'})
         }
       }
@@ -38,8 +40,17 @@ passport.use(new localStrategy(
   }
 ))
 
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
 app.get('/login', passport.authenticate('local'), (req, res) => {
-    console.log('succsessful login', req.user);
+    console.log('successful login', req.user);
+    res.send({user: req.user})
 })
 
 app.post('/signup', (req, res) => {

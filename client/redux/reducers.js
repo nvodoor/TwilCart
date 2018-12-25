@@ -44,7 +44,10 @@ const initialState = {
       price: 15.00,
       cart: 0
     },
-  ]
+  ],
+  signup: 'no',
+  newUser: '',
+  newPassword: ''
 }
 
 export default (state = initialState, action) => {
@@ -73,6 +76,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: newItems
+      }
+    }
+    case 'SIGN_UP': {
+      const { signup } = action.payload;
+      return {
+        ...state,
+        signup: signup
+      }
+    }
+    case 'LEAVE_SIGN_UP': {
+      const { signup } = action.payload;
+      return {
+        ...state,
+        signup: signup
       }
     }
     default:

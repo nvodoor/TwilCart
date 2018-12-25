@@ -1,6 +1,6 @@
 import React from 'react';
 import Items from './Items.jsx';
-import { addCart, removeCart } from './redux/actions.js';
+import { addCart, removeCart, signUp, leaveSignUp } from './redux/actions.js';
 import { connect } from 'react-redux';
 
 import './cart.css';
@@ -11,17 +11,32 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { items } = this.props
-    return (
-      <div className='display'>
-        <h3>These are the items to buy:</h3>
+    const { items, signup, newUser, newPassword } = this.props
+
+    let display;
+
+    if (signup === 'yes') {
+      display = <div>
+        <h3>Please Sign Up Here:</h3>
+        <label>Enter Username:</label>
+        <input type="text" value={newUser}></input>
+        <input type="text" value={newPassword}></input>
+      </div>
+    } else {
+      display = <div><h3>These are the items to buy:</h3>
         <ul className='ulist'>
           {items.map((item) => {
             return <li className='list'>
-              <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart}/>
+              <Items img={item.img} description={item.description} name={item.name} price={item.price} cart={item.cart} />
             </li>
           })}
         </ul>
+        </div>
+    }
+
+    return (
+      <div className='display'>
+        {display}
       </div>
     )
   }
@@ -29,7 +44,10 @@ class Cart extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    items: state.items,
+    signup: state.signup,
+    newUser: state.newUser,
+    newPassword: state.newPassword
   }
 }
 

@@ -11,3 +11,17 @@ export const removeCart = e => ({
     description: e.target.id
   }
 })
+
+export const signUp = () => ({
+  type: 'SIGN_UP',
+  payload: {
+    signup: 'yes'
+  }
+})
+
+export const leaveSignUp = () => ({
+  type: 'LEAVE_SIGN_UP',
+  payload: {
+    signup: 'no'
+  }
+})

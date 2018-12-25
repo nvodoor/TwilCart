@@ -1,7 +1,9 @@
 import React from 'react';
 import Items from './Items.jsx';
-import { addCart, removeCart, signUp, leaveSignUp } from './redux/actions.js';
+import SignUser from './SignUser.jsx';
+import { addCart, removeCart, signUp } from './redux/actions.js';
 import { connect } from 'react-redux';
+
 
 import './cart.css';
 
@@ -10,20 +12,13 @@ class Cart extends React.Component {
     super(props)
   }
 
-  render() {
-    const { items, signup, newUser, newPassword } = this.props
-
-    let display;
+  renderView() {
+    const { items, signup, signUp } = this.props
 
     if (signup === 'yes') {
-      display = <div>
-        <h3>Please Sign Up Here:</h3>
-        <label>Enter Username:</label>
-        <input type="text" value={newUser}></input>
-        <input type="text" value={newPassword}></input>
-      </div>
+      return <SignUser />
     } else {
-      display = <div><h3>These are the items to buy:</h3>
+      return <div><h3>These are the items to buy:</h3>
         <ul className='ulist'>
           {items.map((item) => {
             return <li className='list'>
@@ -31,12 +26,16 @@ class Cart extends React.Component {
             </li>
           })}
         </ul>
-        </div>
+        <button type="text" onClick={signUp}>Sign Up</button>
+      </div>
     }
+  }
+
+  render() {
 
     return (
       <div className='display'>
-        {display}
+        {this.renderView()}
       </div>
     )
   }
@@ -45,9 +44,7 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     items: state.items,
-    signup: state.signup,
-    newUser: state.newUser,
-    newPassword: state.newPassword
+    signup: state.signup
   }
 }
 
@@ -57,8 +54,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(addCart(e))
     },
     removeCart: (e) => {
-      console.log(e.target.id);
       dispatch(removeCart(e))
+    },
+    signUp: () => {
+      dispatch(signUp())
     }
   }
 }

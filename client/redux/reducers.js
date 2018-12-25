@@ -47,7 +47,9 @@ const initialState = {
   ],
   signup: 'no',
   newUser: '',
-  newPassword: ''
+  newPassword: '',
+  user: '',
+  password: ''
 }
 
 export default (state = initialState, action) => {
@@ -92,6 +94,46 @@ export default (state = initialState, action) => {
         signup: signup
       }
     }
+    case 'CREATE_USER': {
+      const { newUser } = action.payload;
+      return {
+        ...state,
+        newUser: newUser
+      }
+    }
+    case 'CREATE_PASSWORD': {
+      const { newPassword } = action.payload;
+      return {
+        ...state,
+        newPassword: newPassword
+      }
+     }
+     case 'CREATE_NEW_USER': {
+       const info = {
+         username: state.newUser,
+         password: state.newPassword
+       }
+       fetch('/signup', {
+         method: 'POST',
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(info)
+       })
+       .then(res => console.log(res))
+       .catch(err => console.log(err));
+     }
+     case 'LOGIN_USER': {
+       const username = state.user;
+       const password = state.password;
+       const url = new URL('/login');
+       const params = {username: username, password: password};
+       url.search = new URLSearchParams(params);
+       
+       fetch(url)
+       .then(res => res.json())
+       .then(data => console.log(data))
+     }
     default:
       return state 
   }

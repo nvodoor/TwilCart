@@ -86,3 +86,7 @@ export const leaveLogin = () => ({
 export const useSite = () => ({
   type: 'USE_SITE'
 })
+
+export const orderGoods = () => ({
+  type: 'ORDER_GOODS'
+})

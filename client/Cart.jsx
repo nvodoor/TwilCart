@@ -2,7 +2,7 @@ import React from 'react';
 import Items from './Items.jsx';
 import SignUser from './SignUser.jsx';
 import LoginUser from './LoginUser.jsx';
-import { addCart, removeCart, signUp, login } from './redux/actions.js';
+import { addCart, removeCart, signUp, login, orderGoods } from './redux/actions.js';
 import { connect } from 'react-redux';
 
 
@@ -14,7 +14,7 @@ class Cart extends React.Component {
   }
 
   renderView() {
-    const { items, signup, signUp, loginPage, loggedIn, user, login } = this.props
+    const { items, signup, signUp, loginPage, loggedIn, user, login, orderCart } = this.props
     if (signup === 'yes') {
       return <SignUser />
     } else {
@@ -42,6 +42,7 @@ class Cart extends React.Component {
                 </li>
               })}
             </ul>
+            <button type="text" onClick={orderCart}>Order Goods</button>
           </div>
         }
       } else if (loginPage) {
@@ -83,6 +84,9 @@ const mapDispatchToProps = dispatch => {
     },
     login: () => {
       dispatch(login())
+    },
+    orderCart: () => {
+      dispatch(orderGoods())
     }
   }
 }

@@ -3,6 +3,8 @@ const path = require('path');
 const parser = require('body-parser');
 const passport = require('passport');
 const mysql = require('mysql');
+const twilconfig = require('./twilio.config.js');
+const client = require('twilio')(twilconfig.accountSid, twilconfig.authToken);
 
 const localStrategy = require('passport-local').Strategy;
 
@@ -66,6 +68,25 @@ app.post('/signup', (req, res) => {
       res.send('success');
     }
   })
+})
+
+app.post('/order', (req, res) => {
+  const items = req.body;
+  const orders = [];
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].cart > 0) {
+      orders.push(`You purchased ${items[i].cart} ${items[i].name} at a price of ${items[i].price}.`)
+    }
+  }
+  let text = orders.join('\n');
+  client.messages
+    .create({
+      body: text,
+      from: twilconfig.toNumber,
+      to: ''
+    })
+    .then(message => console.log(message))
+    .done()
 })
 
 app.listen(3000, () => {

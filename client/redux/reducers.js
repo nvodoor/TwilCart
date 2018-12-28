@@ -160,6 +160,15 @@ export default (state = initialState, action) => {
          loginPage: false
        }
      }
+     case 'ORDER_GOODS': {
+       fetch('/order', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(state.items)
+       })
+     }
     default:
       return state 
   }

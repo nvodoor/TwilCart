@@ -58,8 +58,9 @@ app.get('/login', passport.authenticate('local'), (req, res) => {
 app.post('/signup', (req, res) => {
   const username = req.body['username'];
   const password = req.body['password'];
-  const query = 'INSERT INTO users SET USERNAME = ?, PASSWORD = ?'
-  connection.query(query, [username, password], (error, results) => {
+  const telephone = req.body['telephone'];
+  const query = 'INSERT INTO users SET USERNAME = ?, PASSWORD = ?, TELEPHONE = ?'
+  connection.query(query, [username, password, telephone], (error, results) => {
     if (error) {
       console.log(error);
       res.send('failure');

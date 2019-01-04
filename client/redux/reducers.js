@@ -1,5 +1,3 @@
-import { addCart, removeCart } from './actions.js';
-
 const initialState = {
   items: [
     {
@@ -51,7 +49,9 @@ const initialState = {
   user: '',
   password: '',
   loginPage: false,
-  loggedIn: 'no'
+  loggedIn: 'no',
+  newNumber: '',
+  telephone: ''
 }
 
 export default (state = initialState, action) => {
@@ -113,7 +113,8 @@ export default (state = initialState, action) => {
      case 'CREATE_NEW_USER': {
        const info = {
          username: state.newUser,
-         password: state.newPassword
+         password: state.newPassword,
+         telephone: state.newNumber
        }
        fetch('/signup', {
          method: 'POST',
@@ -168,6 +169,14 @@ export default (state = initialState, action) => {
          },
          body: JSON.stringify(state.items)
        })
+     }
+     case 'ADD_NUMBER': {
+       const { number } = action.payload;
+       console.log(number);
+       return {
+         ...state,
+         newNumber: number
+       }
      }
     default:
       return state 

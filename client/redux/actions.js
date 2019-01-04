@@ -90,3 +90,10 @@ export const useSite = () => ({
 export const orderGoods = () => ({
   type: 'ORDER_GOODS'
 })
+
+export const addNumber = (e) => ({
+  type: 'ADD_NUMBER',
+  payload: {
+    number: e.target.value
+  }
+})

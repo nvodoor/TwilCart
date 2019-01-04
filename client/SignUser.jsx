@@ -1,8 +1,8 @@
 import React from 'react';
-import { updateNewUser, updateNewPassword, leaveSignUp, createUser } from './redux/actions.js';
+import { updateNewUser, updateNewPassword, leaveSignUp, createUser, addNumber } from './redux/actions.js';
 import { connect } from 'react-redux';
 
-const SignUser = ({ newUser, newPassword, leaveSignUp, updateNewUser, updateNewPassword, createUser}) => {
+const SignUser = ({ newUser, newPassword, newNumber, leaveSignUp, updateNewUser, updateNewPassword, createUser, addNumber}) => {
   return (
     <div>
       <h3>Please Sign Up Here:</h3>
@@ -10,6 +10,8 @@ const SignUser = ({ newUser, newPassword, leaveSignUp, updateNewUser, updateNewP
       <input type="text" value={newUser} onChange={updateNewUser}></input>
       <label>Enter Password:</label>
       <input type="text" value={newPassword} onChange={updateNewPassword}></input>
+      <label>Enter Number:</label>
+      <input type="text" value={newNumber} onChange={addNumber}></input>
       <button type="text" onClick={leaveSignUp}>Leave Page</button>
       <button type="text" onClick={createUser}>Create User</button>
     </div>
@@ -19,7 +21,8 @@ const SignUser = ({ newUser, newPassword, leaveSignUp, updateNewUser, updateNewP
 const mapStateToProps = state => {
   return {
     newUser: state.newUser,
-    newPassword: state.newPassword
+    newPassword: state.newPassword,
+    newNumber: state.newNumber,
   }
 }
 
@@ -33,6 +36,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateNewPassword: (e) => {
       dispatch(updateNewPassword(e))
+    },
+    addNumber: (e) => {
+      dispatch(addNumber(e))
     },
     createUser: () => {
       dispatch(createUser())

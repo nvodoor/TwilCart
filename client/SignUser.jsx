@@ -2,18 +2,20 @@ import React from 'react';
 import { updateNewUser, updateNewPassword, leaveSignUp, createUser, addNumber } from './redux/actions.js';
 import { connect } from 'react-redux';
 
+import './signin.css';
+
 const SignUser = ({ newUser, newPassword, newNumber, leaveSignUp, updateNewUser, updateNewPassword, createUser, addNumber}) => {
   return (
-    <div>
+    <div className='signin-form'>
       <h3>Please Sign Up Here:</h3>
       <label>Enter Username:</label>
-      <input type="text" value={newUser} onChange={updateNewUser}></input>
+      <input type="text" className='signin-input' value={newUser} onChange={updateNewUser}></input>
       <label>Enter Password:</label>
-      <input type="text" value={newPassword} onChange={updateNewPassword}></input>
+      <input type="text" className='signin-input'value={newPassword} onChange={updateNewPassword}></input>
       <label>Enter Number:</label>
-      <input type="text" value={newNumber} onChange={addNumber}></input>
-      <button type="text" onClick={leaveSignUp}>Leave Page</button>
-      <button type="text" onClick={createUser}>Create User</button>
+      <input type="text" className='signin-input' value={newNumber} onChange={addNumber}></input>
+      <button type="text" className='signin-button' onClick={leaveSignUp}>Leave Page</button>
+      <button type="text" className='signin-button' onClick={createUser}>Create User</button>
     </div>
   )
 }

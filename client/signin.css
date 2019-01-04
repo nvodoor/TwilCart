@@ -1,0 +1,17 @@
+.signin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signin-input {
+  width: 200px;
+  height: 20px;
+  font-size: 15px;
+  margin: 10px;
+}
+
+.signin-button {
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+}

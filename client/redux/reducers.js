@@ -172,7 +172,6 @@ export default (state = initialState, action) => {
      }
      case 'ADD_NUMBER': {
        const { number } = action.payload;
-       console.log(number);
        return {
          ...state,
          newNumber: number
